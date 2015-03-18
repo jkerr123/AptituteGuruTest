@@ -7,6 +7,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.AndroidTestCase;
 import android.test.ServiceTestCase;
 import android.test.mock.MockContext;
+import android.widget.Button;
 
 import com.aptitudeguru.dashboard.DatabaseHandler;
 import com.aptitudeguru.dashboard.PsychoTable;
@@ -15,16 +16,6 @@ import com.aptitudeguru.dashboard.TestPsycho;
 import junit.framework.TestCase;
 
 public class DatabaseTest extends AndroidTestCase {
-	
-	
-	//PsychoTable psycho;
-	
-	/*MockContext context = new MockContext() {
-	    public TestPsycho contextThing()
-	         {
-	      return new TestPsycho();
-	    };
-	}; */
 
 	public DatabaseTest() {
 		super();
@@ -32,28 +23,20 @@ public class DatabaseTest extends AndroidTestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		
-
 	}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
-	}
-	
+	}	
 	
 	public void test()
-	{
+	{		
+		DatabaseHandler db = new DatabaseHandler(mContext);	
+				
+		PsychoTable psycho = db.getPsycho(1);		
 		
-		
-		DatabaseHandler db = new DatabaseHandler(mContext);
-		
-		
-		
-		 db.getPsycho(1);
-		
-		assertEquals("Hello",db.getTest());
-		
+		assertEquals("Apologise that the book is unavailable and suggest he try Morethanpens.co.uk or another online retailer instead.",psycho.getOption1());		
 	}
-
+	
 
 }
