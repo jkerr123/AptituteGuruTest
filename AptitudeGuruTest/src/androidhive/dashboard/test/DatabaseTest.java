@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.AndroidTestCase;
 import android.test.ServiceTestCase;
 import android.test.mock.MockContext;
 
@@ -13,20 +14,20 @@ import com.aptitudeguru.dashboard.TestPsycho;
 
 import junit.framework.TestCase;
 
-public class DatabaseTest extends TestCase {
+public class DatabaseTest extends AndroidTestCase {
 	
 	
 	//PsychoTable psycho;
 	
-	MockContext context = new MockContext() {
+	/*MockContext context = new MockContext() {
 	    public TestPsycho contextThing()
 	         {
 	      return new TestPsycho();
 	    };
-	}; 
+	}; */
 
-	public DatabaseTest(String name) {
-		super(name);
+	public DatabaseTest() {
+		super();
 	}
 
 	protected void setUp() throws Exception {
@@ -44,7 +45,7 @@ public class DatabaseTest extends TestCase {
 	{
 		
 		
-		DatabaseHandler db = new DatabaseHandler(context);
+		DatabaseHandler db = new DatabaseHandler(mContext);
 		
 		
 		
