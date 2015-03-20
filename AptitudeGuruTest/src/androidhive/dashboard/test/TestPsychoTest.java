@@ -4,22 +4,31 @@ import com.aptitudeguru.dashboard.PsychoResults;
 import com.aptitudeguru.dashboard.TestPsycho;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import androidhive.dashboard.R;
 import junit.framework.TestCase;
 
 public class TestPsychoTest extends ActivityInstrumentationTestCase2<TestPsycho> {
 
+	Activity psycho;
+	
 	public TestPsychoTest() {
 		super(TestPsycho.class);
 	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		
+		psycho = getActivity();
 	}
 
 	protected void tearDown() throws Exception {
@@ -29,7 +38,7 @@ public class TestPsychoTest extends ActivityInstrumentationTestCase2<TestPsycho>
 	@UiThreadTest
 	public void testSameAnswer()
 	{		
-		Activity psycho = getActivity();
+		
 		
 		Button btn_finish = (Button) psycho.findViewById(R.id.btn_finish);		
 		
@@ -48,7 +57,7 @@ public class TestPsychoTest extends ActivityInstrumentationTestCase2<TestPsycho>
 	@UiThreadTest
 	public void testInvalidMostLikely()
 	{		
-		Activity psycho = getActivity();
+		
 		
 		Button btn_finish = (Button) psycho.findViewById(R.id.btn_finish);		
 		
@@ -67,7 +76,7 @@ public class TestPsychoTest extends ActivityInstrumentationTestCase2<TestPsycho>
 	@UiThreadTest
 	public void testInvalidLeastLikely()
 	{		
-		Activity psycho = getActivity();
+		
 		
 		Button btn_finish = (Button) psycho.findViewById(R.id.btn_finish);		
 		
@@ -85,7 +94,7 @@ public class TestPsychoTest extends ActivityInstrumentationTestCase2<TestPsycho>
 	@UiThreadTest
 	public void testValidInput()
 	{		
-		Activity psycho = getActivity();
+		
 		
 		Button btn_finish = (Button) psycho.findViewById(R.id.btn_finish);		
 		
@@ -99,4 +108,38 @@ public class TestPsychoTest extends ActivityInstrumentationTestCase2<TestPsycho>
 		btn_finish.performClick();	
 		assertEquals(((TestPsycho) psycho).getErrorMsg(),null);
 	}
+	
+	@UiThreadTest
+	public void testTimerStart() 
+	{		
+		((TestPsycho) psycho).startTimer();
+		
+		assertEquals(((TestPsycho) psycho).getTimerHasStarted(), true);
+		assertTrue(((TestPsycho) psycho).getMinutes() ==  5 && ((TestPsycho) psycho).getSeconds() ==  0);					
+	}
+	
+	@UiThreadTest
+	public void testTimerColourAtStart()
+	{
+    	//TextView timerText = new TextView(psycho);
+    	
+		assertEquals(((TestPsycho) psycho).getTextColor(), Color.BLACK);
+		
+		
+	}
+	
+	@UiThreadTest
+	public void testTimerWarningColour()
+	{		
+		((TestPsycho) psycho).startTimer();
+		
+		try {
+			Thread.sleep((1000*60*4)+1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(((TestPsycho) psycho).getTextColor(), Color.RED);
+	}
+	
 }
